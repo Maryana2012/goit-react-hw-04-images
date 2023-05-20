@@ -18,7 +18,6 @@ export default class ImageGallery extends Component {
     }
  
     componentDidUpdate(prevProps, prevState) {
-        // this.setState({valueInput: this.props.valueInput})
         console.log(this.state.valueInput);
         const { valueInput, page } = this.state;
         if (prevProps.valueInput !== this.props.valueInput || prevState.page!==this.state.page) {
@@ -59,11 +58,9 @@ export default class ImageGallery extends Component {
                     image={image.webformatURL}
                     alt={image.tags} />)}
             </ul>
-            {/* {this.state.gallery.length < this.state.totalHits &&  */}
-                <Button gallery={gallery}/>
-            {/* // } */}
-            
-              </>
+            {this.state.gallery.length < this.state.totalHits && 
+            <Button handleLoadMore={this.handleLoadMore } /> }
+             </>
        
             )
        
