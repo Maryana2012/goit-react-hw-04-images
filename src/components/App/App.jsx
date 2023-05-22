@@ -17,13 +17,13 @@ export default function App() {
     const [loading, setLoading] = useState(false);
     const [modalImage, setModalImage] = useState('');
     const [loadMore, setLoadMore] = useState(false);
-    const [error, setError] = useState(null)
+    // const [error, setError] = useState(null)
 
-    useEffect(() => {
-  console.log('prevHits:', hits);
-        setHits([])
-          console.log('after:', hits);
-},[name])
+//     useEffect(() => {
+//   console.log('prevHits:', hits);
+//         setHits([])
+//           console.log('after:', hits);
+// },[name])
 
     
  const getValue = (name, page) => {
@@ -60,7 +60,7 @@ const imageRequest = async (name, page)=> {
             return response.data.hits;
         }
         catch (error) {
-            setError(error);
+           console.log(error);
         }
   }
 

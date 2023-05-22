@@ -1,12 +1,12 @@
 // import { Component } from 'react'
-import { useState,useEffect } from 'react';
+import { useState} from 'react';
 import PropTypes from 'prop-types';
 import Notiflix from 'notiflix';
 import css from '../Searchbar/Searchbar.module.css'
 
 export default function Searchbar(props) {
     const [name, setName] = useState('');
-    const [page, setPage] = useState(1);
+    const [page] = useState(1);
    
 
     const handleChange = e => {
