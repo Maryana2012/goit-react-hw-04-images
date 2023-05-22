@@ -7,7 +7,7 @@ import Modal from "components/Modal/Modal";
 import { RotatingLines } from "react-loader-spinner";
 import Notiflix from 'notiflix';
 import css from '../App/App.module.css'
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export default function App() {
     const [hits, setHits] = useState([]);
@@ -17,22 +17,11 @@ export default function App() {
     const [loading, setLoading] = useState(false);
     const [modalImage, setModalImage] = useState('');
     const [loadMore, setLoadMore] = useState(false);
-    // const [error, setError] = useState(null)
-
-//     useEffect(() => {
-//   console.log('prevHits:', hits);
-//         setHits([])
-//           console.log('after:', hits);
-// },[name])
-
     
  const getValue = (name, page) => {
-        setName(name);
-     setPage(page);
-     console.log('prevHits:', hits);
-
-     
-     console.log('after:', hits);
+    setName(name);
+    setPage(page);
+    setHits([]);
     const response = imageRequest(name, page);
     return response;
 }   
