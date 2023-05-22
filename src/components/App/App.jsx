@@ -7,24 +7,17 @@ import Modal from "components/Modal/Modal";
 import { RotatingLines } from "react-loader-spinner";
 import Notiflix from 'notiflix';
 import css from '../App/App.module.css'
-// import { useEffect } from "react";
-
+ 
 export default function App() {
     const [hits, setHits] = useState([]);
     const [name, setName] = useState('');
-    const [page, setPage] = useState();
+    const [page, setPage] = useState(1);
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [modalImage, setModalImage] = useState('');
     const [loadMore, setLoadMore] = useState(false);
     
- const getValue = (name, page) => {
-    setName(name);
-    setPage(page);
-    setHits([]);
-    const response = imageRequest(name, page);
-    return response;
-}   
+        
 const imageRequest = async (name, page)=> {        
     setLoading(true);
   
@@ -53,7 +46,16 @@ const imageRequest = async (name, page)=> {
         }
   }
 
+const createInput=() => {
+       setHits([]) 
+    }  
     
+const getValue = (name, page) => {
+    setName(name);
+    setPage(page);
+    const response = imageRequest(name, page);
+    return response;
+    }       
     
 const openModal = largeImageURL => {
      setShowModal(true);
@@ -64,9 +66,9 @@ const toggleModal = () => {
      setShowModal(!showModal)
     }
 
-return (<div>
+return (<>
     <Searchbar onSubmit={getValue}
-        // onSubmitInput={createInput}
+        onSubmitInput={createInput}
     />
               {loading && <RotatingLines />}
               {hits && (<ImageGallery articles={hits}
@@ -75,90 +77,7 @@ return (<div>
                 <Modal onClose={ toggleModal }>
                 <img src={modalImage} alt="largeImage" className={css.Image} />
                 </Modal> )}
-              { loadMore && (<Button onButtonClick={ () => imageRequest(name, page) } />)}
-              </div>
+              { (loadMore && hits.length !==0)  && (<Button onButtonClick={ () => imageRequest(name, page) } />)}
+              </>
              )   
 }
-// export default class App extends Component{
-//     state = {
-//         hits: [],
-//         name: '',
-//         page: 1,
-//         showModal: false,
-//         loading: false,
-//         modalImage: '',
-//         loadMore: false
-//     }
-    // componentDidMount() {
-    //     if (this.state.name === "") {
-    //         this.setState({hits: []})
-    //     }
-    //    }
-       
-//     async imageRequest(name, page) {        
-//         this.setState({ loading: true });
-//         const BASE_KEY = '34725568-3bb6c7550daf8cb631b41e469';
-//         try {
-//             const response = await axios(`https://pixabay.com/api/?q=${name}&page=${page}&key=${BASE_KEY}&image_type=photo&orientation=horizontal&per_page=12`);
-//                 if (response.data.hits.length < 1) {
-//                 this.setState({
-//                     loading: false,
-//                     loadMore: false})
-//                 Notiflix.Notify.info('There are no images for your request')
-//                 return;
-//             }
-//             this.setState(({ loading, hits, page, }) => {
-//                 return {
-//                 loading: !loading,
-//                 hits: [...hits,...response.data.hits],
-//                 page: page + 1,
-//                 }
-//             });
-//             this.setState({ loadMore: true });
-//             if (response.data.hits.length < 12){
-//                 this.setState({ loading: false, loadMore: false })
-//              }
-//             return response.data.hits;
-//         }
-//         catch (error) {
-//             this.setState({ error });
-//         }
-//   }
-  
-//     getValue = data => {
-//         this.setState({ name: data.name, page: data.page, hits: []});
-//         const { name, page } = data;
-//         const response = this.imageRequest(name, page);
-//         return response;
-//     }
-
-//     openModal = largeImageURL => {
-//         this.setState({
-//           showModal: true,
-//           modalImage: largeImageURL,
-//         });
-//     }
-
-//     toggleModal = () => {
-//         this.setState(({ showModal }) => ({
-//             showModal: !showModal
-//         }));
-//     }
-
-//     render() {
-//        const { hits, showModal, name, page, loading, modalImage, loadMore } = this.state;
-   
-    //    return (<div>
-    //           <Searchbar onSubmitHandler={ this.getValue } />
-    //           {loading && <RotatingLines />}
-    //           {hits && (<ImageGallery articles={hits}
-    //                   onImgClick={this.openModal} />)}
-    //           {showModal && (
-    //             <Modal onClose={ this.toggleModal }>
-    //             <img src={modalImage} alt="largeImage" className={css.Image} />
-    //             </Modal> )}
-    //           { loadMore && (<Button onButtonClick={ () => this.imageRequest(name, page) } />)}
-    //           </div>
-    //          )
-//     }
-// }

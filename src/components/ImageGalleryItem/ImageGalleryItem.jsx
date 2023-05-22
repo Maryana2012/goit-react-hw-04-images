@@ -15,5 +15,5 @@ ImageGalleryItem.propTypes = {
     image: PropTypes.string,
     largeImage: PropTypes.string,
     tags: PropTypes.string,
-    onModal: PropTypes.func,
+    onImgClick: PropTypes.func,
 }
